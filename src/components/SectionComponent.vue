@@ -1,10 +1,11 @@
 <template>
   <div
-    class="block bg-white"
-    :class="{
-      'flex justify-center items-center first:min-h-[100px] md:h-96': !titleSlot,
-      'p-6 border border-gray-400': titleSlot
-    }"
+    :class="[
+      'block bg-white',
+      titleSlot
+        ? 'p-6 border border-gray-400'
+        : 'flex justify-center items-center first:min-h-[100px] md:auto'
+    ]"
   >
     <h5
       v-if="titleSlot"
@@ -20,14 +21,14 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
-import { SectionComponentState } from "./SectionComponent";
+import { defineProps } from "vue"
+import { SectionComponentState } from "./SectionComponent"
 
 // Access props using defineProps
-const props = defineProps<SectionComponentState>();
+const props = defineProps<SectionComponentState>()
 
 // Access the slots directly
-const titleSlot = props.title;
+const titleSlot = props.title
 // const contentSlot = props.content;
 </script>
 

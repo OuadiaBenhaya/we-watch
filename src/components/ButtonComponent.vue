@@ -11,33 +11,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, onMounted } from "vue";
-import { ShowInterface, UpdateButtonTextState } from "@/types/ShowInterface";
-import { useTvShowStore } from "@/stores/tvshow/index";
-// import { useButtonStore } from "@/stores/ButtonStore"
+import { ref, defineProps, onMounted } from "vue"
+import { ShowInterface, UpdateButtonTextState } from "@/types/ShowInterface"
+import { useTvShowStore } from "@/stores/tvshow/index"
 
-const tvStore = useTvShowStore();
+const tvStore = useTvShowStore()
 
-const props = defineProps<UpdateButtonTextState>();
+const props = defineProps<UpdateButtonTextState>()
 
-const textButton = ref("");
+const textButton = ref("")
 onMounted(() => {
-  handleButtonValue();
-});
-const handleButtonClick = () => {
-  console.log(props.mode);
+  handleButtonValue()
+})
 
+const handleButtonClick = () => {
   if (props.mode === "watch") {
-    tvStore.randWhatToWatch();
-    tvStore.buttonWatchClick = true;
+    tvStore.randWhatToWatch()
+    tvStore.buttonWatchClick = true
   }
 
   // checks if the tvshow prop exists
   if (props.tvshow) {
-    tvStore.actionList(props.tvshow, props.mode);
+    tvStore.actionList(props.tvshow, props.mode)
   }
-  handleButtonValue();
-};
+  handleButtonValue()
+}
 
 const handleButtonValue = () => {
   // filter onclick states
@@ -47,18 +45,18 @@ const handleButtonValue = () => {
       textButton.value =
         tvStore.isInMyList(props.tvshow as ShowInterface, "list") !== false
           ? "Ajouté"
-          : "Ajouter à ma liste";
-      break;
+          : "Ajouter à ma liste"
+      break
     case "list":
-      textButton.value = "Ajouté";
-      break;
+      textButton.value = "Ajouté"
+      break
     case "watch":
-      textButton.value = "Je vais regarder quoi ce soir ?";
-      break;
+      textButton.value = "Je vais regarder quoi ce soir ?"
+      break
     default:
-      textButton.value = "";
+      textButton.value = ""
   }
-};
+}
 </script>
 
 <style lang="postcss"></style>
