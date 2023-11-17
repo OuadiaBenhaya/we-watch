@@ -10,11 +10,11 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue";
-import ShowCard from "@/components/ShowCard.vue";
-import { ShowCardInterface } from "@/components/ShowCard";
-import { useTvShowStore } from "@/stores/tvshow";
+import { defineProps } from "vue"
+import ShowCard from "@/components/ShowCard.vue"
+import { ShowCardInterface } from "@/components/ShowCard"
+import { useTvShowStore } from "@/stores/tvshow"
 
-const tvStore = useTvShowStore();
-defineProps<ShowCardInterface>();
+const tvStore = useTvShowStore()
+defineProps<ShowCardInterface>()
 </script>

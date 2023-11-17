@@ -1,5 +1,5 @@
-import { ref } from "vue";
-import { ShowStateType } from "@/types/tvshow/type";
+import { ref } from "vue"
+import { ShowStateType } from "@/types/tvshow/type"
 
 export const state = {
   shows: ref([]),
@@ -8,4 +8,4 @@ export const state = {
   suggestWhatToWatch: ref(),
   loadedResult: ref(false),
   buttonWatchClick: ref(false)
-} as ShowStateType;
+} as ShowStateType

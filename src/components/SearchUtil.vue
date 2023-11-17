@@ -54,16 +54,16 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
-import { useSearchStore } from "@/stores/search/index";
-import ShowCard from "@/components/ShowCard.vue";
+import { computed } from "vue"
+import { useSearchStore } from "@/stores/search/index"
+import ShowCard from "@/components/ShowCard.vue"
 
-const searchStore = useSearchStore();
+const searchStore = useSearchStore()
 
 const searchInput = computed({
   get: () => searchStore.getSearchQuery,
-  set: v => searchStore.setSearchQuery(v)
-});
+  set: (v) => searchStore.setSearchQuery(v)
+})
 </script>
 
 <style lang="postcss">

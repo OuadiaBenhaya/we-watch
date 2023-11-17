@@ -33,17 +33,17 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
-import SearchComponent from "@/components/SearchUtil.vue";
-import SectionComponent from "@/components/SectionComponent.vue";
-import ButtonComponent from "@/components/ButtonComponent.vue";
-import ListSection from "@/sections/ListSection.vue";
-import { useTvShowStore } from "@/stores/tvshow";
-const tvShowStore = useTvShowStore();
+import { onMounted } from "vue"
+import SearchComponent from "@/components/SearchUtil.vue"
+import SectionComponent from "@/components/SectionComponent.vue"
+import ButtonComponent from "@/components/ButtonComponent.vue"
+import ListSection from "@/sections/ListSection.vue"
+import { useTvShowStore } from "@/stores/tvshow"
+const tvShowStore = useTvShowStore()
 
 onMounted(() => {
-  tvShowStore.myList = tvShowStore.getShowsFromLocalStorage("list");
-});
+  tvShowStore.myList = tvShowStore.getShowsFromLocalStorage("list")
+})
 </script>
 
 <style lang="postcss">
