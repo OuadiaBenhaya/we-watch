@@ -1,9 +1,10 @@
-import { ref } from "vue";
-import { ShowInterface } from "@/types/ShowInterface";
+import { ref } from "vue"
+import { SearchShowResults } from "@/types/ShowInterface"
 
 export const state = {
-  results: ref({
+  results: ref<SearchShowResults>({
     searchQuery: "",
-    searchResults: [] as ShowInterface[]
-  })
-};
+    searchResults: []
+  }),
+  loadedResults: ref(false)
+}

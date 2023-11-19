@@ -7,45 +7,40 @@ import {
   SearchShowResults,
   ShowCardInterface
 } from "@/types/ShowInterface"
-import { useButtonStore } from "@/stores/ButtonStore"
 
 export const actions = {
   searchShow: async (
     results: Ref<SearchShowResults>,
-    searchInput: Ref<string>
-  ) => {
+    searchInput: Ref<SearchShowResults["searchQuery"]>
+  ): Promise<ShowInterface[]> => {
     results.value.searchQuery = searchInput.value
-    const showReq = await api.getShows(results.value)
-    if (showReq !== undefined) {
-      results.value.searchResults = showReq as []
-    }
+
+    const response = await api.getShows(results.value)
+    return (results.value.searchResults = response)
   },
 
-  actionList: (show: ShowInterface, mode: ShowCardInterface["mode"]) => {
-    actions.isInMyList(show, mode)
-    //add a show to list
+  actionList: (tvshow: ShowInterface, mode: ShowCardInterface["mode"]) => {
+    actions.isInMyList(tvshow, mode)
+    //add a tvshow to list
     if (mode === "search") {
-      const buttonStore = useButtonStore()
-      buttonStore.updateButtonState("list")
-
-      show.show.isSelected = true // injected when button is click from search results
-      actions.addShowToLocalStorage(show, "list") // injected to localStorage too
+      tvshow.show.isSelected = true // injected when button is click from search results
+      actions.addShowToLocalStorage(tvshow, "list") // injected to localStorage too
       state.myList.value = actions.getShowsFromLocalStorage("list") // unshift to always push to the beginning
     }
 
     //add a show what to watch
-    if (mode === "list" && show.show.id) {
-      const isInMyList = actions.isInMyList(show, "watch")
+    if (mode === "list" && tvshow.show.id) {
+      const isInMyList = actions.isInMyList(tvshow, "watch")
 
       // if number means the index was found
       if (typeof isInMyList === "number") {
         // remove from watch
-        actions.removeShowFromLocalStorage(show, "watch")
+        actions.removeShowFromLocalStorage(tvshow, "watch")
         state.watchTonight.value?.splice(isInMyList, 1)
       } else {
         //  add to watch
-        actions.addShowToLocalStorage(show, "watch")
-        state.watchTonight.value?.push(show)
+        actions.addShowToLocalStorage(tvshow, "watch")
+        state.watchTonight.value?.push(tvshow)
       }
     }
   },
@@ -94,14 +89,18 @@ export const actions = {
   randWhatToWatch(): ShowInterface | null {
     const whatToWatchList = actions.getShowsFromLocalStorage("watch")
 
-    if (whatToWatchList) {
+    if (
+      whatToWatchList !== null &&
+      typeof whatToWatchList == "object" &&
+      whatToWatchList?.length >= 1
+    ) {
       const randomizeWatchIndex = Math.floor(
         Math.random() * whatToWatchList.length
       )
       return (state.suggestWhatToWatch.value =
         whatToWatchList[randomizeWatchIndex])
     }
-    return (state.suggestWhatToWatch.value = {} as ShowInterface)
+    return null
   },
 
   // check if the clicked show is already in our list

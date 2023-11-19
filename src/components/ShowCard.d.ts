@@ -1,6 +1,6 @@
-import { ShowInterface } from "@/types/ShowInterface";
+import { ShowInterface } from "@/types/ShowInterface"
 
 export interface ShowCardInterface {
-  tvshow: ShowInterface | null;
-  mode: "search" | "watch" | "list";
+  tvshow: ShowInterface | null
+  mode: "search" | "watch" | "list"
 }

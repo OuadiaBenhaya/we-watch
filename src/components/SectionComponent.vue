@@ -21,7 +21,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue"
 import { SectionComponentState } from "./SectionComponent"
 
 // Access props using defineProps
@@ -29,7 +28,6 @@ const props = defineProps<SectionComponentState>()
 
 // Access the slots directly
 const titleSlot = props.title
-// const contentSlot = props.content;
 </script>
 
 <style lang="postcss"></style>

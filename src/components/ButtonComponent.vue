@@ -1,61 +1,33 @@
 <template>
-  <button
-    v-if="mode !== 'list'"
-    type="button"
-    class="text-gray-900 bg-gray-100 hover:bg-gray-300 focus:ring-4 focus:outline-none focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 mr-2 mb-2"
-    @click="handleButtonClick"
-    :disabled="tvshow && tvStore.isInMyList(tvshow, 'list') !== false"
-  >
-    {{ textButton }}
+  <button :class="btnClass" @click="handleClick">
+    <slot></slot>
   </button>
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps, onMounted } from "vue"
-import { ShowInterface, UpdateButtonTextState } from "@/types/ShowInterface"
-import { useTvShowStore } from "@/stores/tvshow/index"
+import { computed } from "vue"
 
-const tvStore = useTvShowStore()
-
-const props = defineProps<UpdateButtonTextState>()
-
-const textButton = ref("")
-onMounted(() => {
-  handleButtonValue()
-})
-
-const handleButtonClick = () => {
-  if (props.mode === "watch") {
-    tvStore.randWhatToWatch()
-    tvStore.buttonWatchClick = true
-  }
-
-  // checks if the tvshow prop exists
-  if (props.tvshow) {
-    tvStore.actionList(props.tvshow, props.mode)
-  }
-  handleButtonValue()
+interface ButtonInterface {
+  primary?: Boolean
+  secondary?: Boolean
 }
 
-const handleButtonValue = () => {
-  // filter onclick states
-  switch (props.mode) {
-    case "search":
-      //switch vals if the show exist in the list or not
-      textButton.value =
-        tvStore.isInMyList(props.tvshow as ShowInterface, "list") !== false
-          ? "Ajouté"
-          : "Ajouter à ma liste"
-      break
-    case "list":
-      textButton.value = "Ajouté"
-      break
-    case "watch":
-      textButton.value = "Je vais regarder quoi ce soir ?"
-      break
-    default:
-      textButton.value = ""
-  }
+// Props
+const props = defineProps<ButtonInterface>()
+
+// Emits
+const emit = defineEmits(["click"])
+
+// Computed class based on props
+const btnClass = computed(() => ({
+  "font-medium w-auto rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 mb-2 focus:ring-4 focus:outline-none focus:ring-gray-100": true,
+  "text-white bg-black hover:bg-gray-600": props.primary && true,
+  "text-gray-900 bg-gray-100 hover:bg-gray-300": props.secondary && true
+}))
+
+// Click emit handler
+const handleClick = () => {
+  emit("click")
 }
 </script>
 

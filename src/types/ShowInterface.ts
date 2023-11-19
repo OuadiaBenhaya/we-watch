@@ -16,12 +16,10 @@ export interface ShowInterface {
 
 export interface SearchShowResults {
   searchQuery: string
-  searchResults: ShowInterface[] | [] | undefined
+  searchResults: ShowInterface[]
 }
 
 export interface ShowCardInterface {
-  tvshow?: ShowInterface
+  tvshow: ShowInterface
   mode: "search" | "list" | "watch"
 }
-
-export interface UpdateButtonTextState extends ShowCardInterface {}

@@ -23,39 +23,5 @@ export const apiService = {
       ...config
     })
     return response.data
-  },
-  post: async <T>(
-    url: string,
-    data: object,
-    config?: AxiosRequestConfig
-  ): Promise<T> => {
-    const response: AxiosResponse<T> = await api.post(url, data, {
-      ...headers,
-      ...config
-    })
-    return response.data
-  },
-  put: async <T>(
-    url: string,
-    data: object,
-    config?: AxiosRequestConfig
-  ): Promise<T> => {
-    const response: AxiosResponse<T> = await api.put(url, data, {
-      ...headers,
-      ...config
-    })
-    return response.data
-  },
-  del: async <T>(
-    url: string,
-    data: object,
-    config?: AxiosRequestConfig
-  ): Promise<T> => {
-    const response: AxiosResponse<T> = await api.delete(url, {
-      ...headers,
-      ...config,
-      data
-    })
-    return response.data
   }
 }

@@ -1,15 +1,14 @@
-import { state } from "./state";
-import api from "@/api/shows";
+import { state } from "./state"
+import api from "@/api/shows"
+import { SearchShowResults } from "@/types/ShowInterface"
 
 export const actions = {
-  async showSearch() {
-    // state.results.value.searchQuery = state.results.value.searchQuery; // Asign search query to the result object
-    const awaitReq = await api.getShows(state.results.value);
-    if (awaitReq !== undefined) {
-      state.results.value.searchResults = awaitReq as [];
-    }
+  showSearch: async () => {
+    const response = await api.getShows(state.results.value)
+    state.loadedResults.value = response.length ? true : false
+    state.results.value.searchResults = response
   },
-  setSearchQuery(val: string) {
-    state.results.value.searchQuery = val;
+  setSearchQuery(val: SearchShowResults["searchQuery"]) {
+    state.results.value.searchQuery = val
   }
-};
+}

@@ -4,13 +4,12 @@
       <show-card :tvshow="tvshow" mode="list" />
     </div>
   </div>
-  <div v-else-if="mode === 'watch' && tvStore.buttonWatchClick">
+  <div v-else-if="tvStore.buttonWatchClick && mode === 'watch'">
     <show-card :tvshow="tvStore.suggestWhatToWatch" :mode="mode" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps } from "vue"
 import ShowCard from "@/components/ShowCard.vue"
 import { ShowCardInterface } from "@/components/ShowCard"
 import { useTvShowStore } from "@/stores/tvshow"

@@ -35,9 +35,9 @@
     </div>
   </form>
 
-  <div class="overflowy" v-if="searchStore.results.searchResults.length > 0">
+  <div class="overflowy" v-if="searchStore.isSearchResults">
     <div
-      v-for="tvshow in searchStore.results.searchResults"
+      v-for="tvshow in searchStore.getSearchResults"
       :key="tvshow?.show?.id"
       class="mb-4"
     >
